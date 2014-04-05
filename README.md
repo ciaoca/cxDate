@@ -6,7 +6,7 @@ cxDate 是一个用于格式化日期的插件，通过自定义样式来格式�
 
 * cxDate v1.0
 
-文档：http://code.ciaoca.com/jquery/cxdate/
+文档：http://code.ciaoca.com/javascript/cxdate/
 
 ##【参数说明】
 <table>
