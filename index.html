@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>cxDate 日期格式化 - 示例</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+<link rel="stylesheet" href="css/demo.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>cxDate 日期格式化</h1>
+  </div>
+</header>
+<div class="main">
+  <div class="wrap">
+    <h2>示例</h2>
+
+    <fieldset>
+      <legend>操作</legend>
+      <section>
+        <p>
+          <label>格式</label>
+          <input type="text" id="d_style" value="YYYY-MM-DD \M\AKE{{\D}}" size="30">
+        </p>
+        <p>
+          <label>时间</label>
+          <input type="text" id="d_value" value="2020-1-1 0:0:0" size="30">
+        </p>
+      </section>
+      <section class="acts">
+        <a href="javascript://" id="d_try_now">解析当前时间</a>
+        <a href="javascript://" id="d_try_val">解析指定时间</a>
+        <a href="javascript://" id="d_set_cn">中文语言</a>
+        <a href="javascript://" id="d_set_en">英文语言</a>
+      </section>
+    </fieldset>
+
+    <fieldset>
+      <legend>预览</legend>
+      <section id="d_preview"></section>
+    </fieldset>
+
+    <div class="about">
+      <section>
+        <h2>文档</h2>
+        <p><a target="_blank" href="https://github.com/ciaoca/cxDate">Github</a></p>
+      </section>
+      <section>
+        <h2>作者</h2>
+        <p><a target="_blank" href="http://ciaoca.com/">Ciaoca</a></p>
+      </section>
+      <section>
+        <h2>协议</h2>
+        <p>Released under the MIT license</p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script src="js/cxdate.js"></script>
+<script>
+(function() {
+  var datePreview = document.getElementById('d_preview');
+  var dateStyle = document.getElementById('d_style');
+  var dateValue = document.getElementById('d_value');
+
+  var dateGo = function(value) {
+    var list = [
+      'YYYY-MM-DD',
+      'YYYY-MM-DD HH:mm:ss',
+      'MM/DD ddd',
+      'MM/DD 第w周',
+      'MM/DD HH:mm',
+      'HH:mm A',
+      'HH:mm',
+      'HH:mm:ss',
+      // 'YYYY','YY','MMMM','MMM','MM','M','DDDD','DDD','DD','D','dddd','ddd','d','ww','w','HH','H','hh','h','mm','m','ss','s','A','a',
+    ];
+    list.unshift(dateStyle.value);
+
+    if (!value) {
+      value = new Date();
+    };
+
+    var html = '<table><thead><tr><th>Style</th><th>Value</th></tr></thead>';
+
+    for (var i = 0, l = list.length; i < l; i++) {
+      html += '<tr><td>' + list[i] + '</td><td>' + cxDate(list[i], value) + '</td></tr>';
+    };
+
+    html += '</table>';
+
+    datePreview.innerHTML = html;
+  };
+
+  document.getElementById('d_try_now').addEventListener('click', function() {
+    dateGo();
+  });
+
+  document.getElementById('d_try_val').addEventListener('click', function() {
+    dateGo(dateValue.value);
+  });
+
+  document.getElementById('d_set_cn').addEventListener('click', function() {
+    cxDate.setLanguage({
+      monthAbbr: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','十二月'],
+      monthName: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+      weekAbbr: ['周日','周一','周二','周三','周四','周五','周六'],
+      weekName: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+      amName: ['上午','下午'],
+      AMName: ['上午','下午']
+    });
+    dateGo();
+  });
+
+  document.getElementById('d_set_en').addEventListener('click', function() {
+    cxDate.setLanguage({
+      monthAbbr: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      monthName: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+      weekAbbr: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+      weekName: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+      amName: ['am','pm'],
+      AMName: ['AM','PM']
+    });
+    dateGo();
+  });
+})();
+</script>
+</body>
+</html>
