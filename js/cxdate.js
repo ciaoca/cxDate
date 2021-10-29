@@ -108,42 +108,42 @@
     return weekNum;
   };
 
-  plugins.getAttr = function(date) {
+  plugins.getAttr = function(dateObj) {
     var self = this;
     var attr = {};
-    var timestamp = date.getTime();
+    var timestamp = dateObj.getTime();
 
-    attr.YYYY = date.getFullYear();
+    attr.YYYY = dateObj.getFullYear();
     attr.YY = String(attr.YYYY).slice(-2);
 
     var yearFirstDate = new Date(attr.YYYY, 0, 1, 0, 0, 0, 0);
-    var yearFirstTime = yearFirstDate.getTime();
+    var yearFirstTime = dateObj.getTime();
 
-    attr.M = date.getMonth();
+    attr.M = dateObj.getMonth();
     attr.MMM = self.language.monthAbbr[attr.M];
     attr.MMMM = self.language.monthName[attr.M];
     attr.M += 1;
     attr.MM = self.fillLeadZero(attr.M, 2);
 
-    attr.D = date.getDate();
+    attr.D = dateObj.getDate();
     attr.DD = self.fillLeadZero(attr.D, 2);
     attr.DDD = Math.floor((timestamp - yearFirstTime) / 86400000) + 1;
     attr.DDDD = self.fillLeadZero(attr.DDD, 3);
 
-    attr.d = date.getDay();
+    attr.d = dateObj.getDay();
     attr.ddd = self.language.weekAbbr[attr.d];
     attr.dddd = self.language.weekName[attr.d];
 
-    attr.w = self.getWeekNum(date);
+    attr.w = self.getWeekNum(dateObj);
     attr.ww = self.fillLeadZero(attr.w, 2);
 
-    attr.H = date.getHours();
+    attr.H = dateObj.getHours();
     attr.HH = self.fillLeadZero(attr.H, 2);
-    attr.h = (attr.H > 12) ? attr.H - 12: attr.H;
+    attr.h = attr.H > 12 ? attr.H - 12: attr.H;
     attr.hh = self.fillLeadZero(attr.h, 2);
-    attr.m = date.getMinutes();
+    attr.m = dateObj.getMinutes();
     attr.mm = self.fillLeadZero(attr.m, 2);
-    attr.s = date.getSeconds();
+    attr.s = dateObj.getSeconds();
     attr.ss = self.fillLeadZero(attr.s, 2);
 
     if (attr.H > 12) {
